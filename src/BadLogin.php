@@ -37,7 +37,7 @@ class BadLogin extends ActiveRecord
     public function rules()
     {
         return [
-            [['key'], 'required'],
+            [['username'], 'required'],
         ];
     }
 }

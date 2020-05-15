@@ -43,7 +43,7 @@ class BadLoginBehavior extends Behavior
 
     public function beforeValidate()
     {
-        if ($this->_attempt = BadLogin::find()->where(['key' => $this->key])->andWhere(['>', 'reset_at', new Expression('UNIX_TIMESTAMP(NOW())')])->one()) {
+        if ($this->_attempt = BadLogin::find()->where(['username' => $this->username])->andWhere(['>', 'reset_at', new Expression('UNIX_TIMESTAMP(NOW())')])->one()) {
             if ($this->_attempt->amount >= $this->attempts) {
                 $this->owner->addError($this->usernameAttribute, $this->message);
             }
@@ -58,7 +58,7 @@ class BadLoginBehavior extends Behavior
         if ($this->owner->hasErrors($this->passwordAttribute)) {
             if (!$this->_attempt) {
                 $this->_attempt = new BadLogin;
-                $this->_attempt->key = $this->key;
+                $this->_attempt->username = $this->username;
             }
 
             $this->_attempt->amount++;
@@ -76,9 +76,9 @@ class BadLoginBehavior extends Behavior
     /**
      * @return string
      */
-    public function getKey()
+    public function getUsername()
     {
-        return sha1($this->owner->{$this->usernameAttribute});
+        return $this->owner->{$this->usernameAttribute};
     }
 
     /**
