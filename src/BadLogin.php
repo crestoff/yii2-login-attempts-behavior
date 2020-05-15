@@ -6,7 +6,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-class LoginAttempt extends ActiveRecord
+class BadLogin extends ActiveRecord
 {
     public static function tableName()
     {

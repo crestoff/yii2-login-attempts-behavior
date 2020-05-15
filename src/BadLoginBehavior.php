@@ -7,7 +7,7 @@ use yii\base\Model;
 use yii\db\Expression;
 use yii\helpers\Inflector;
 
-class LoginAttemptBehavior extends \yii\base\Behavior
+class BadLoginBehavior extends \yii\base\Behavior
 {
     public $attempts = 3;
 
@@ -46,7 +46,7 @@ class LoginAttemptBehavior extends \yii\base\Behavior
 
     public function beforeValidate()
     {
-        if ($this->_attempt = LoginAttempt::find()->where(['key' => $this->key])->andWhere(['>', 'reset_at', new Expression('NOW()')])->one()) {
+        if ($this->_attempt = BadLogin::find()->where(['key' => $this->key])->andWhere(['>', 'reset_at', new Expression('NOW()')])->one()) {
             if ($this->_attempt->amount >= $this->attempts) {
                 $this->owner->addError($this->usernameAttribute, $this->message);
             }
@@ -57,7 +57,7 @@ class LoginAttemptBehavior extends \yii\base\Behavior
     {
         if ($this->owner->hasErrors($this->passwordAttribute)) {
             if (!$this->_attempt) {
-                $this->_attempt = new LoginAttempt;
+                $this->_attempt = new BadLogin;
                 $this->_attempt->key = $this->key;
             }
 
