@@ -9,11 +9,11 @@ The preferred way to install this extension is through [composer](http://getcomp
 
 Either run
 ```sh
-composer require crestoff/yii2-login-attempts-behavior
+composer require crestoff/yii2badlogin
 ```
 or add
 ```json
-"crestoff/yii2-login-attempts-behavior" : "*"
+"crestoff/yii2badlogin" : "*"
 ```
 to the require section of your `composer.json` file.
 
@@ -21,7 +21,7 @@ Usage
 =====
 Run the following migration
 
-    php yii migrate --migrationPath="vendor/crestoff/yii2-login-attempts-behavior/src/migrations"  --interactive=0
+    php yii migrate --migrationPath="vendor/crestoff/badlogin/src/migrations" --interactive=0
 
 Add the behavior to your login model.
 
@@ -31,7 +31,7 @@ public function behaviors()
     $behaviors = parent::behaviors();
 
     $behaviors[] = [
-        'class' => '\crestoff\loginattempts\LoginAttemptBehavior',
+        'class' => '\crestoff\badlogin\LoginAttemptBehavior',
 
         // Amount of attempts in the given time period
         'attempts' => 3,
