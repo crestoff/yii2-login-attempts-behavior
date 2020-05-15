@@ -1,5 +1,5 @@
 {
-  "name": "crestoff/yii2-bad-login-behavior",
+  "name": "crestoff/yii2badlogin",
   "description": "Disable login after multiple failures.",
   "keywords": [
     "yii2",
