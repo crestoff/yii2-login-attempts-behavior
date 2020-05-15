@@ -10,7 +10,7 @@ class LoginAttempt extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'login_attempt';
+        return 'bad_login';
     }
 
     public function behaviors()

@@ -2,11 +2,11 @@
 
 use yii\db\Migration;
 
-class m171023_155521_create_login_attempt_table extends Migration
+class m171023_155521_create_bad_login_table extends Migration
 {
     public function safeUp()
     {
-        $this->createTable('login_attempt', [
+        $this->createTable('bad_login', [
             'id' => $this->primaryKey(),
             'key' => $this->string()->notNull(),
             'amount' => $this->integer(2)->defaultValue(1),
@@ -15,13 +15,13 @@ class m171023_155521_create_login_attempt_table extends Migration
             'updated_at' => $this->timestamp(),
         ]);
 
-        $this->createIndex('login_attempt_key_index', 'login_attempt', 'key');
-        $this->createIndex('login_attempt_amount_index', 'login_attempt', 'amount');
-        $this->createIndex('login_attempt_reset_at_index', 'login_attempt', 'reset_at');
+        $this->createIndex('bad_login_key_index', 'bad_login', 'key');
+        $this->createIndex('bad_login_amount_index', 'bad_login', 'amount');
+        $this->createIndex('bad_login_reset_at_index', 'bad_login', 'reset_at');
     }
 
     public function safeDown()
     {
-        $this->dropTable('login_attempt');
+        $this->dropTable('bad_login');
     }
 }
