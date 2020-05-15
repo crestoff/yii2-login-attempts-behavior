@@ -1,8 +1,12 @@
 <?php
 
-namespace ethercreative\loginattempts;
+namespace crestoff\yii2badlogin;
 
-class LoginAttempt extends \yii\db\ActiveRecord
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
+
+class LoginAttempt extends ActiveRecord
 {
     public static function tableName()
     {
@@ -14,7 +18,7 @@ class LoginAttempt extends \yii\db\ActiveRecord
         $behaviors = parent::behaviors();
 
         $behaviors['timestampBehavior'] = [
-            'class' => \yii\behaviors\TimestampBehavior::className(),
+            'class' => \yii\behaviors\TimestampBehavior::class,
             'value' => new \yii\db\Expression('NOW()'),
         ];
 

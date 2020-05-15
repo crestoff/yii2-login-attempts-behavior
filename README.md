@@ -1,4 +1,4 @@
-Yii2 Login Attempts Behavior
+Yii2 Bad Login Behavior
 ========================
 
 Store login failures, and disable after multiple failures.
@@ -9,11 +9,11 @@ The preferred way to install this extension is through [composer](http://getcomp
 
 Either run
 ```sh
-composer require ethercreative/yii2-login-attempts-behavior
+composer require crestoff/yii2-login-attempts-behavior
 ```
 or add
 ```json
-"ethercreative/yii2-login-attempts-behavior": "*"
+"crestoff/yii2-login-attempts-behavior" : "*"
 ```
 to the require section of your `composer.json` file.
 
@@ -21,7 +21,7 @@ Usage
 =====
 Run the following migration
 
-    php yii migrate --migrationPath="vendor/ethercreative/yii2-login-attempts-behavior/src/migrations"  --interactive=0
+    php yii migrate --migrationPath="vendor/crestoff/yii2-login-attempts-behavior/src/migrations"  --interactive=0
 
 Add the behavior to your login model.
 
@@ -31,7 +31,7 @@ public function behaviors()
     $behaviors = parent::behaviors();
 
     $behaviors[] = [
-        'class' => '\ethercreative\loginattempts\LoginAttemptBehavior',
+        'class' => '\crestoff\loginattempts\LoginAttemptBehavior',
 
         // Amount of attempts in the given time period
         'attempts' => 3,
@@ -63,12 +63,3 @@ public function behaviors()
     return $behaviors;
 }
 ```
-
-Todo
-====
-
-- [ ] Add cache storage
-- [ ] Add better DB support
-- [ ] Add option for IP (other?) instead of key
-- [ ] Add failure delay option
-- [ ] More customisable

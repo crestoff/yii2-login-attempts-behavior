@@ -1,13 +1,11 @@
 <?php
 
-namespace ethercreative\loginattempts;
+namespace crestoff\yii2badlogin;
 
 use Yii;
 use yii\base\Model;
 use yii\db\Expression;
 use yii\helpers\Inflector;
-
-use ethercreative\loginattempts\LoginAttempt;
 
 class LoginAttemptBehavior extends \yii\base\Behavior
 {
@@ -48,10 +46,8 @@ class LoginAttemptBehavior extends \yii\base\Behavior
 
     public function beforeValidate()
     {
-        if ($this->_attempt = LoginAttempt::find()->where(['key' => $this->key])->andWhere(['>', 'reset_at', new Expression('NOW()')])->one())
-        {
-            if ($this->_attempt->amount >= $this->attempts)
-            {
+        if ($this->_attempt = LoginAttempt::find()->where(['key' => $this->key])->andWhere(['>', 'reset_at', new Expression('NOW()')])->one()) {
+            if ($this->_attempt->amount >= $this->attempts) {
                 $this->owner->addError($this->usernameAttribute, $this->message);
             }
         }
@@ -59,10 +55,8 @@ class LoginAttemptBehavior extends \yii\base\Behavior
 
     public function afterValidate()
     {
-        if ($this->owner->hasErrors($this->passwordAttribute))
-        {
-            if (!$this->_attempt)
-            {
+        if ($this->owner->hasErrors($this->passwordAttribute)) {
+            if (!$this->_attempt) {
                 $this->_attempt = new LoginAttempt;
                 $this->_attempt->key = $this->key;
             }
@@ -87,8 +81,7 @@ class LoginAttemptBehavior extends \yii\base\Behavior
     {
         $unit = Inflector::singularize(strtolower($unit));
 
-        if (!in_array($unit, $this->_safeUnits))
-        {
+        if (!in_array($unit, $this->_safeUnits)) {
             $safe = join(', ', $this->_safeUnits);
             throw new \Exception("$unit is not an allowed unit. Safe units are: [$safe]");
         }
