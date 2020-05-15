@@ -18,8 +18,8 @@ class LoginAttempt extends ActiveRecord
         $behaviors = parent::behaviors();
 
         $behaviors['timestampBehavior'] = [
-            'class' => \yii\behaviors\TimestampBehavior::class,
-            'value' => new \yii\db\Expression('NOW()'),
+            'class' => TimestampBehavior::class,
+            'value' => new Expression('NOW()'),
         ];
 
         return $behaviors;
