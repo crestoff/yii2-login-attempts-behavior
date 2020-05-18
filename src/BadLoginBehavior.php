@@ -16,6 +16,9 @@ class BadLoginBehavior extends Behavior
     public $durationUnit = 'second';
     public $disableDuration = 900;
     public $disableDurationUnit = 'second';
+    public $clearOnHandle = true;
+    public $clearDuration = 30;
+    public $clearDurationUnit = 'day';
     public $usernameAttribute = 'email';
     public $passwordAttribute = 'password';
     public $message = 'Sorry, you have exceeded the password attempts.';
@@ -43,6 +46,12 @@ class BadLoginBehavior extends Behavior
 
     public function beforeValidate()
     {
+        if ($this->clearOnHandle) {
+            BadLogin::deleteAll(
+                ['<', 'bad_login.reset_at', $this->intervalExpression($this->clearDuration, $this->clearDurationUnit, "-")]
+            );
+        }
+
         if ($this->_attempt = BadLogin::find()->where(['username' => $this->username])->andWhere(['>', 'reset_at', new Expression('UNIX_TIMESTAMP(NOW())')])->one()) {
             if ($this->_attempt->amount >= $this->attempts) {
                 $this->owner->addError($this->usernameAttribute, $this->message);
@@ -87,7 +96,7 @@ class BadLoginBehavior extends Behavior
      * @return Expression
      * @throws Exception
      */
-    private function intervalExpression($length, $unit = 'second')
+    private function intervalExpression($length, $unit = 'second', $sign = "+")
     {
         $unit = Inflector::singularize(strtolower($unit));
 
@@ -101,6 +110,6 @@ class BadLoginBehavior extends Behavior
         else
             $interval = "$length $unit";
 
-        return new Expression("UNIX_TIMESTAMP(NOW() + INTERVAL $interval)");
+        return new Expression("UNIX_TIMESTAMP(NOW() $sign INTERVAL $interval)");
     }
 }
