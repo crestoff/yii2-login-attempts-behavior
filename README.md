@@ -33,31 +33,17 @@ public function behaviors()
     $behaviors[] = [
         'class' => '\crestoff\badlogin\LoginAttemptBehavior',
 
-        // Amount of attempts in the given time period
         'attempts' => 3,
-
-        // the duration, for a regular failure to be stored for
-        // resets on new failure
         'duration' => 300,
-
-        // the unit to use for the duration
-        'durationUnit' = 'second',
-
-        // the duration, to disable login after exceeding `attemps`
+        'durationUnit' => 'second',
         'disableDuration' => 900,
-
-        // the unit to use for the disable duration
+        'clearOnHandle' => true,
+        'clearDuration' => 30,
+        'clearDurationUnit' => 'day',
         'disableDurationUnit' => 'second',
-
-        // the attribute used as the key in the database
-        // and add errors to
         'usernameAttribute' => 'email',
-
-        // the attribute to check for errors
         'passwordAttribute' => 'password',
-
-        // the validation message to return to `usernameAttribute`
-        'message' => 'Login disabled',
+        'message' => 'Login is disabled',
     ];
 
     return $behaviors;
