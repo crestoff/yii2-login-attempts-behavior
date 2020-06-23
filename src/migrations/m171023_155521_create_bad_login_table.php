@@ -10,9 +10,9 @@ class m171023_155521_create_bad_login_table extends Migration
             'id' => $this->primaryKey(),
             'key' => $this->string()->notNull(),
             'amount' => $this->integer(2)->defaultValue(1),
-            'reset_at' => $this->timestamp(),
-            'created_at' => $this->timestamp(),
-            'updated_at' => $this->timestamp(),
+            'reset_at' => $this->timestamp()->defaultValue(NULL),
+            'created_at' => $this->timestamp()->defaultValue(NULL),
+            'updated_at' => $this->timestamp()->defaultValue(NULL),
         ]);
 
         $this->createIndex('bad_login_key_index', 'bad_login', 'key');
