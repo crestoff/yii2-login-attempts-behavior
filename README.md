@@ -21,7 +21,7 @@ Usage
 =====
 Run the following migration
 
-    php yii migrate --migrationPath="vendor/crestoff/badlogin/src/migrations" --interactive=0
+    php yii migrate --migrationPath="vendor/crestoff/yii2badlogin/src/migrations" --interactive=0
 
 Add the behavior to your login model.
 
