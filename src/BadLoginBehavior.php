@@ -23,8 +23,8 @@ class BadLoginBehavior extends Behavior
     public $passwordAttribute = 'password';
     public $message = 'Sorry, you have exceeded the password attempts.';
 
-    private $_attempt;
-    private $_safeUnits = [
+    protected $_attempt;
+    protected $_safeUnits = [
         'second',
         'minute',
         'day',
@@ -96,7 +96,7 @@ class BadLoginBehavior extends Behavior
      * @return Expression
      * @throws Exception
      */
-    private function intervalExpression($length, $unit = 'second', $sign = "+")
+    protected function intervalExpression($length, $unit = 'second', $sign = "+")
     {
         $unit = Inflector::singularize(strtolower($unit));
 
