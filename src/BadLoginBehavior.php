@@ -65,17 +65,21 @@ class BadLoginBehavior extends Behavior
     public function afterValidate()
     {
         if ($this->owner->hasErrors($this->passwordAttribute)) {
-            if (!$this->_attempt) {
+            if (BadLogin::find(['username' => $this->username])->exists()) {
+                $this->_attempt = BadLogin::find(['username' => $this->username])->one();
+                if ($this->_attempt->amount >= $this->attempts) {
+                    $this->_attempt->amount = 0;
+                    $this->_attempt->reset_at = null;
+                }
+            } else {
                 $this->_attempt = new BadLogin;
-                $this->_attempt->username = $this->username;
             }
 
+            $this->_attempt->username = $this->username;
             $this->_attempt->amount++;
 
             if ($this->_attempt->amount >= $this->attempts) {
                 $this->_attempt->reset_at = $this->intervalExpression($this->disableDuration, $this->disableDurationUnit);
-            } else {
-                $this->_attempt->reset_at = $this->intervalExpression($this->duration, $this->durationUnit);
             }
 
             $this->_attempt->save();
